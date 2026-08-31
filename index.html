@@ -536,6 +536,201 @@
     50% { transform: translateY(-4px) rotate(-5deg); }
     75% { transform: translateY(-7px) rotate(4deg); }
   }
+  .mascot-btn {
+    position: relative;
+    display: block;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  .mascot-bubble {
+    position: absolute;
+    right: 100%;
+    bottom: 56%;
+    margin-right: 16px;
+    min-width: 150px;
+    max-width: 240px;
+    padding: 12px 16px;
+    background: #fffdf8;
+    border: 2px solid var(--ink);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    box-shadow: 4px 5px 0 rgba(36, 29, 22, 0.14);
+    font-family: var(--font-head);
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    text-align: left;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(10px) scale(0.9);
+    transform-origin: right bottom;
+    transition: opacity 0.2s var(--ease-out), transform 0.34s var(--ease-spring), visibility 0.2s;
+    pointer-events: none;
+  }
+  .mascot-bubble::after {
+    content: "";
+    position: absolute;
+    right: -7px;
+    bottom: 22px;
+    width: 12px;
+    height: 12px;
+    background: #fffdf8;
+    border-right: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    transform: rotate(-45deg);
+  }
+  .floating-mascot:hover .mascot-bubble,
+  .mascot-btn:focus-visible .mascot-bubble {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) scale(1);
+  }
+
+  /* ---------- chat panel (王研在线答疑) ---------- */
+  .chat-panel {
+    position: fixed;
+    right: clamp(12px, 2.8vw, 36px);
+    bottom: calc(clamp(12px, 2.8vw, 32px) + clamp(104px, 13vw, 178px) + 18px);
+    z-index: 60;
+    width: min(360px, calc(100vw - 24px));
+    height: min(520px, 62vh);
+    display: flex;
+    flex-direction: column;
+    background: #fffdf8;
+    border: 2px solid var(--ink);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    box-shadow: 5px 6px 0 rgba(36, 29, 22, 0.16);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(16px) scale(0.96);
+    transform-origin: right bottom;
+    transition: opacity 0.24s var(--ease-out), transform 0.36s var(--ease-spring), visibility 0.24s;
+  }
+  .chat-panel.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .chat-head {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--paper);
+    border-bottom: 2px solid var(--ink);
+  }
+  .chat-avatar {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px 6px 12px 6px;
+    border: 2px solid var(--ink);
+    overflow: hidden;
+    background: var(--paper-2);
+  }
+  .chat-avatar img { width: 100%; height: 100%; object-fit: contain; }
+  .chat-title { font-family: var(--font-head); font-size: 18px; color: var(--ink); }
+  .chat-sub { font-family: var(--font-body); font-size: 12px; color: var(--ink-3); }
+  .chat-close {
+    margin-left: auto;
+    flex: none;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: #fffdf8;
+    color: var(--ink);
+    font-size: 17px; line-height: 1;
+    cursor: pointer;
+    transition: transform 0.3s var(--ease-spring), background 0.3s var(--ease-out);
+  }
+  .chat-close:hover { transform: rotate(90deg); background: var(--paper-2); }
+
+  .chat-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .chat-msg {
+    max-width: 82%;
+    padding: 10px 14px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    word-break: break-word;
+    animation: chat-in 0.28s var(--ease-spring);
+  }
+  @keyframes chat-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  .chat-bot {
+    align-self: flex-start;
+    background: var(--paper-2);
+    border: 1.5px solid var(--hairline);
+    border-radius: 14px 6px 14px 6px;
+  }
+  .chat-user {
+    align-self: flex-end;
+    background: var(--seal);
+    color: #fff;
+    border-radius: 6px 14px 6px 14px;
+  }
+  .chat-typing { color: var(--ink-3); }
+  .chat-typing::after {
+    content: '···';
+    display: inline-block;
+    margin-left: 2px;
+    animation: chat-blink 1.2s ease-in-out infinite;
+  }
+  @keyframes chat-blink {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+
+  .chat-input {
+    flex: none;
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+    border-top: 2px solid var(--ink);
+    background: var(--paper);
+  }
+  .chat-input input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 14px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--ink);
+    background: #fffdf8;
+    border: 2px solid var(--ink);
+    border-radius: 12px 6px 12px 6px;
+    outline: none;
+  }
+  .chat-input input:focus { box-shadow: 3px 3px 0 rgba(36, 29, 22, 0.12); }
+  .chat-send {
+    flex: none;
+    padding: 10px 18px;
+    font-family: var(--font-head);
+    font-size: 15px;
+    color: #fff;
+    background: var(--seal);
+    border: 2px solid var(--ink);
+    border-radius: 12px 6px 12px 6px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 rgba(36, 29, 22, 0.16);
+    transition: transform 0.3s var(--ease-spring), box-shadow 0.3s var(--ease-out);
+  }
+  .chat-send:hover { transform: translateY(-1px); box-shadow: 4px 4px 0 rgba(36, 29, 22, 0.2); }
+  .chat-send:active { transform: translateY(1px); box-shadow: 2px 2px 0 rgba(36, 29, 22, 0.16); }
 
   /* ---------- mobile ---------- */
   @media (max-width: 720px) {
@@ -837,8 +1032,29 @@
   </div>
 </footer>
 
-<div class="floating-mascot" aria-hidden="true">
-  <img src="assets/minister-mascot.png" alt="">
+<div class="floating-mascot">
+  <button class="mascot-btn" type="button" aria-label="文娱部长王研">
+    <img src="assets/minister-mascot.png" alt="">
+    <span class="mascot-bubble" role="status">俺是文娱部长王研！</span>
+  </button>
+</div>
+
+<div class="chat-panel" id="chatPanel" aria-hidden="true" role="dialog" aria-modal="false" aria-labelledby="chatTitle">
+  <div class="chat-head">
+    <span class="chat-avatar"><img src="assets/minister-mascot.png" alt=""></span>
+    <span>
+      <span class="chat-title" id="chatTitle">文娱部长王研</span><br>
+      <span class="chat-sub">招新答疑 · 在线</span>
+    </span>
+    <button class="chat-close" id="chatClose" type="button" aria-label="关闭">×</button>
+  </div>
+  <div class="chat-list" id="chatList">
+    <div class="chat-msg chat-bot">嗨！俺是文娱部长王研，关于招新想聊点啥？</div>
+  </div>
+  <div class="chat-input">
+    <input id="chatInput" type="text" placeholder="问点招新的事吧…" aria-label="输入消息" maxlength="200">
+    <button class="chat-send" id="chatSend" type="button">发送</button>
+  </div>
 </div>
 
 <script>
@@ -899,6 +1115,122 @@
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && nav.classList.contains('is-open')) closeMenu();
+  });
+
+  // 浮动小人：悬停说话 + 点击开聊天
+  const mascot = document.querySelector('.floating-mascot');
+  const mascotBtn = document.querySelector('.mascot-btn');
+  const bubble = document.querySelector('.mascot-bubble');
+  const mascotLines = [
+    '俺是文娱部长王研！',
+    '点我聊聊，招新问题随便问～',
+    '绝美文娱，一起做大做强！',
+    '四个小组随你挑，进来玩！',
+    '想报名就点下方「加入我们」呀～'
+  ];
+  mascot.addEventListener('mouseenter', () => {
+    bubble.textContent = mascotLines[Math.floor(Math.random() * mascotLines.length)];
+  });
+
+  // 直接调用 DeepSeek（key 内嵌；api.deepseek.com 国内直连）
+  const DEEPSEEK_API_KEY = 'KEY_REMOVED';
+  const DEEPSEEK_URL = 'https://api.deepseek.com/chat/completions';
+  const SYSTEM_PROMPT = `你是厦门大学学生会文娱部部长王研，一个Q版卡通小人，正在给2026级新生做招新答疑。
+说话风格：亲切、活泼、接地气，自称"俺"，偶尔带点俏皮，每句话不超过50个字，不要暴露自己是AI或程序。
+
+招新关键信息（务必准确）：
+- 文娱部下设4个小组：文宣组（宣传委员）、设计组（文娱门面）、舞台组（文娱核心）、外联组（金主爸爸）。
+- 我们不要求任何专业技能，只要有一颗热忱的心，进部后学长学姐会带你上手。
+- 报名方式：看页面下方"加入我们"，点按钮即可。
+- 部门口号：绝美文娱，一起做大做强。
+如果被问到不确定的问题（比如面试时间、截止日期等没写明的细节），就老实说"这个俺还不清楚，建议看页面里的说明或问群里学长学姐"，不要编造。`;
+
+  const chatPanel = document.getElementById('chatPanel');
+  const chatClose = document.getElementById('chatClose');
+  const chatList = document.getElementById('chatList');
+  const chatInput = document.getElementById('chatInput');
+  const chatSend = document.getElementById('chatSend');
+  let messages = [];
+
+  function openChat() {
+    chatPanel.classList.add('is-open');
+    chatPanel.setAttribute('aria-hidden', 'false');
+    setTimeout(() => chatInput.focus(), 60);
+  }
+  function closeChat() {
+    chatPanel.classList.remove('is-open');
+    chatPanel.setAttribute('aria-hidden', 'true');
+  }
+
+  mascotBtn.addEventListener('click', () => {
+    if (chatPanel.classList.contains('is-open')) closeChat();
+    else openChat();
+  });
+  chatClose.addEventListener('click', closeChat);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && chatPanel.classList.contains('is-open')) closeChat();
+  });
+
+  function appendMsg(role, text) {
+    const div = document.createElement('div');
+    div.className = 'chat-msg ' + (role === 'user' ? 'chat-user' : 'chat-bot');
+    div.textContent = text;
+    chatList.appendChild(div);
+    chatList.scrollTop = chatList.scrollHeight;
+    return div;
+  }
+
+  function send() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+    chatInput.value = '';
+    appendMsg('user', text);
+    messages.push({ role: 'user', content: text });
+
+    const typing = document.createElement('div');
+    typing.className = 'chat-msg chat-bot chat-typing';
+    typing.textContent = '王研正在输入';
+    chatList.appendChild(typing);
+    chatList.scrollTop = chatList.scrollHeight;
+
+    const finish = (reply) => {
+      typing.remove();
+      appendMsg('bot', reply);
+      messages.push({ role: 'assistant', content: reply });
+    };
+
+    fetch(DEEPSEEK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + DEEPSEEK_API_KEY
+      },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages.slice(-10)],
+        max_tokens: 200,
+        temperature: 0.8
+      })
+    })
+      .then((r) => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then((data) => {
+        const reply = data.choices && data.choices[0] && data.choices[0].message
+          ? data.choices[0].message.content
+          : '';
+        finish(reply || '俺走神了，再问一次呗～');
+      })
+      .catch(() => finish('俺这会儿有点卡壳，稍后再试试哈～'));
+  }
+
+  chatSend.addEventListener('click', send);
+  chatInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      send();
+    }
   });
 </script>
 </body>
