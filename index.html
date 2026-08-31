@@ -508,6 +508,34 @@
   .footer { padding: 40px 0; border-top: 2px dashed var(--hairline); }
   .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; font-size: 15px; color: var(--ink-3); font-weight: 500; }
   .footer .seal-word { font-family: var(--font-head); color: var(--seal); font-size: 16px; }
+  /* ---------- floating department mascot ---------- */
+  .floating-mascot {
+    position: fixed;
+    right: clamp(12px, 2.8vw, 36px);
+    bottom: clamp(12px, 2.8vw, 32px);
+    z-index: 50;
+    width: clamp(104px, 13vw, 178px);
+  }
+  .floating-mascot img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(4px 6px 0 rgba(36, 29, 22, 0.16));
+    transform-origin: 34% 72%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .floating-mascot img { animation: mascot-bob 4.6s ease-in-out infinite; }
+    .floating-mascot:hover img { animation: mascot-wave 0.8s var(--ease-spring) 2; }
+  }
+  @keyframes mascot-bob {
+    0%, 100% { transform: translateY(0) rotate(-1deg); }
+    50% { transform: translateY(-9px) rotate(1deg); }
+  }
+  @keyframes mascot-wave {
+    0%, 100% { transform: translateY(0) rotate(-1deg); }
+    25% { transform: translateY(-7px) rotate(5deg); }
+    50% { transform: translateY(-4px) rotate(-5deg); }
+    75% { transform: translateY(-7px) rotate(4deg); }
+  }
 
   /* ---------- mobile ---------- */
   @media (max-width: 720px) {
@@ -808,6 +836,10 @@
     <span>绝美文娱，期待你的加入，一起做大做强</span>
   </div>
 </footer>
+
+<div class="floating-mascot" aria-hidden="true">
+  <img src="assets/minister-mascot.png" alt="">
+</div>
 
 <script>
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
