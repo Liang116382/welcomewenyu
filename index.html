@@ -753,8 +753,22 @@
   .chat-avatar img { width: 100%; height: 100%; object-fit: contain; }
   .chat-title { font-family: var(--font-head); font-size: 18px; color: var(--ink); }
   .chat-sub { font-family: var(--font-body); font-size: 12px; color: var(--ink-3); }
-  .chat-close {
+  .chat-clear {
     margin-left: auto;
+    flex: none;
+    height: 32px;
+    padding: 0 10px;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    border: 1.5px solid var(--hairline);
+    background: #fffdf8;
+    color: var(--ink-3);
+    font-family: var(--font-body);
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out);
+  }
+  .chat-clear:hover { background: var(--paper-2); color: var(--ink); }
+  .chat-close {
     flex: none;
     width: 32px; height: 32px;
     border-radius: 50%;
@@ -1196,6 +1210,7 @@
       <span class="chat-title" id="chatTitle">小研 · 文娱部吉祥物</span><br>
       <span class="chat-sub">点击体验 · 和我互动</span>
     </span>
+    <button class="chat-clear" id="chatClear" type="button" aria-label="清空聊天" title="清空聊天">清空</button>
     <button class="chat-close" id="chatClose" type="button" aria-label="关闭">×</button>
   </div>
   <div class="chat-list" id="chatList">
@@ -1350,7 +1365,23 @@
   const chatList = document.getElementById('chatList');
   const chatInput = document.getElementById('chatInput');
   const chatSend = document.getElementById('chatSend');
+  const chatClear = document.getElementById('chatClear');
   let messages = [];
+  const STORAGE_KEY = 'wenyu-chat-history';
+
+  function saveHistory() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(messages)); } catch (e) {}
+  }
+  function loadHistory() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const arr = JSON.parse(raw);
+      if (Array.isArray(arr)) {
+        messages = arr.filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string');
+      }
+    } catch (e) {}
+  }
 
   function openChat() {
     chatPanel.classList.add('is-open');
@@ -1367,6 +1398,14 @@
     else openChat();
   });
   chatClose.addEventListener('click', closeChat);
+
+  function clearChat() {
+    messages = [];
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    const msgs = chatList.querySelectorAll('.chat-msg');
+    for (let i = 1; i < msgs.length; i++) msgs[i].remove();
+  }
+  chatClear.addEventListener('click', clearChat);
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && chatPanel.classList.contains('is-open')) closeChat();
   });
@@ -1405,12 +1444,17 @@
     return div;
   }
 
+  // 恢复上次聊天记录（localStorage）
+  loadHistory();
+  messages.forEach(m => appendMsg(m.role === 'user' ? 'user' : 'bot', m.content));
+
   function send() {
     const text = chatInput.value.trim();
     if (!text) return;
     chatInput.value = '';
     appendMsg('user', text);
     messages.push({ role: 'user', content: text });
+    saveHistory();
 
     const typing = document.createElement('div');
     typing.className = 'chat-msg chat-bot chat-typing';
@@ -1422,6 +1466,7 @@
       typing.remove();
       appendMsg('bot', reply);
       messages.push({ role: 'assistant', content: reply });
+      saveHistory();
     };
 
     fetch(DEEPSEEK_URL, {
