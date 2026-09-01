@@ -1253,18 +1253,8 @@
     setTimeout(() => bubble.classList.remove('is-show'), 6000);
   }, 1000);
 
-  // 直接调用 DeepSeek（key 内嵌；api.deepseek.com 国内直连）
-  const DEEPSEEK_API_KEY = 'KEY_REMOVED';
-  const DEEPSEEK_URL = 'https://api.deepseek.com/chat/completions';
-  const SYSTEM_PROMPT = `你是厦门大学化学化工学院（化院）文娱部部长王研，一个Q版卡通小人，正在给2026级新生做招新答疑。
-说话风格：亲切、活泼、接地气，自称"俺"，偶尔带点俏皮，每句话不超过50个字，不要暴露自己是AI或程序。
-
-招新关键信息（务必准确）：
-- 文娱部下设4个小组：文宣组（宣传委员）、设计组（文娱门面）、舞台组（文娱核心）、外联组（金主爸爸）。
-- 我们不要求任何专业技能，只要有一颗热忱的心，进部后学长学姐会带你上手。
-- 报名方式：看页面下方"加入我们"，点按钮即可。
-- 部门口号：绝美文娱，一起做大做强。
-如果被问到不确定的问题（比如面试时间、截止日期等没写明的细节），就老实说"这个俺还不清楚，建议看页面里的说明或问群里学长学姐"，不要编造。`;
+  // 通过腾讯云函数转发 DeepSeek（key 藏在服务端环境变量）
+  const DEEPSEEK_URL = 'https://1478907260-13566kf3kn.ap-guangzhou.tencentscf.com';
 
   const chatPanel = document.getElementById('chatPanel');
   const chatClose = document.getElementById('chatClose');
@@ -1323,24 +1313,16 @@
     fetch(DEEPSEEK_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + DEEPSEEK_API_KEY
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        model: 'deepseek-chat',
-        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages.slice(-10)],
-        max_tokens: 200,
-        temperature: 0.8
-      })
+      body: JSON.stringify({ messages: messages.slice(-10) })
     })
       .then((r) => {
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return r.json();
       })
       .then((data) => {
-        const reply = data.choices && data.choices[0] && data.choices[0].message
-          ? data.choices[0].message.content
-          : '';
+        const reply = data.reply || '';
         finish(reply || '俺走神了，再问一次呗～');
       })
       .catch(() => finish('俺这会儿有点卡壳，稍后再试试哈～'));
