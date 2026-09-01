@@ -452,7 +452,7 @@
     transition: transform 0.35s var(--ease-spring);
   }
   .mcard:hover { transform: rotate(0deg) translateY(-4px); }
-  .mcard img { width: 100%; height: auto; }
+  .mcard img, .mcard video { width: 100%; height: auto; display: block; }
   .mcard .tape { width: 76px; height: 22px; top: -11px; }
   @media (max-width: 860px) { .member-wall { columns: 3; } }
   @media (max-width: 520px) { .member-wall { columns: 2; } }
@@ -1200,6 +1200,7 @@
           <div class="mcard" style="--tilt:-2.5deg"><span class="tape tape-blue"></span><img loading="lazy" decoding="async" src="img2026/web/s19_12.jpg" alt="文娱部快乐日常"></div>
           <div class="mcard" style="--tilt:2deg"><span class="tape tape-orange"></span><img loading="lazy" decoding="async" src="img2026/web/s19_13.jpg" alt="文娱部快乐日常"></div>
           <div class="mcard" style="--tilt:-1.5deg"><span class="tape tape-yellow"></span><img loading="lazy" decoding="async" src="img2026/web/s19_14.jpg" alt="文娱部快乐日常"></div>
+          <div class="mcard" style="--tilt:2deg"><span class="tape tape-blue"></span><video autoplay muted loop playsinline preload="metadata" poster="img2026/web/s19_vid_poster.jpg"><source src="img2026/web/s19_vid.mp4" type="video/mp4"></video></div>
         </div>
       </div>
     </div>
