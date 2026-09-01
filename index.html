@@ -553,6 +553,70 @@
   }
   @media (max-width: 640px) { .flip .seal-big { position: static; margin: 0 auto 20px; transform: rotate(-5deg); } }
 
+  /* ---------- join flow modal ---------- */
+  .flow-overlay {
+    position: fixed; inset: 0; z-index: 80;
+    display: flex; align-items: center; justify-content: center;
+    padding: 22px;
+    background: rgba(36, 29, 22, 0.38);
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.24s var(--ease-out), visibility 0.24s;
+  }
+  .flow-overlay.is-open { opacity: 1; visibility: visible; }
+  .flow-panel {
+    position: relative;
+    width: min(560px, 100%);
+    max-height: 86vh;
+    overflow-y: auto;
+    background: #fffdf8;
+    border: 2px solid var(--ink);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    box-shadow: 8px 10px 0 rgba(36, 29, 22, 0.22);
+    padding: 42px 30px 34px;
+    transform: translateY(14px) scale(0.97);
+    transition: transform 0.36s var(--ease-spring);
+  }
+  .flow-overlay.is-open .flow-panel { transform: translateY(0) scale(1); }
+  .flow-close {
+    position: absolute; top: 14px; right: 14px; z-index: 3;
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 2px solid var(--ink); background: #fffdf8; color: var(--ink);
+    font-size: 18px; line-height: 1; cursor: pointer;
+    transition: transform 0.3s var(--ease-spring), background 0.3s var(--ease-out);
+  }
+  .flow-close:hover { transform: rotate(90deg); background: var(--paper-2); }
+  .flow-title {
+    font-family: var(--font-head); font-size: 28px; text-align: center;
+    color: var(--ink); letter-spacing: 0.02em; margin-bottom: 8px;
+  }
+  .flow-note {
+    text-align: center; font-size: 14.5px; color: var(--ink-3); font-weight: 500;
+    margin-bottom: 26px;
+  }
+  .flow-steps { display: flex; flex-direction: column; }
+  .flow-step {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 14px 18px;
+    background: #fffdf8;
+    border: 2px solid var(--ink);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    font-family: var(--font-head); font-size: 18px; color: var(--ink);
+  }
+  .flow-step .flow-num {
+    flex: none;
+    width: 28px; height: 28px; line-height: 25px;
+    border: 2px solid var(--ink); border-radius: 50%;
+    font-family: var(--font-body); font-size: 14px; font-weight: 700;
+    background: var(--paper); color: var(--ink); text-align: center;
+  }
+  .flow-step.wait { background: var(--paper-2); border-style: dashed; color: var(--ink-2); }
+  .flow-step.final { background: var(--seal); color: #fff; }
+  .flow-step.final .flow-num { background: #fff; color: var(--seal); border-color: var(--seal); }
+  .flow-arrow {
+    text-align: center; font-size: 22px; line-height: 1; color: var(--seal);
+    padding: 5px 0;
+  }
+
   /* ---------- footer ---------- */
   .footer { padding: 40px 0; border-top: 2px dashed var(--hairline); }
   .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; font-size: 15px; color: var(--ink-3); font-weight: 500; }
@@ -1105,7 +1169,7 @@
           <li>如果你想要结识一群志同道合的朋友</li>
           <li>如果你想要感受活动带给你的成就感</li>
         </ul>
-        <a class="btn btn-primary" href="mailto:hello@example.com">加入文娱 <span class="arr">↗</span></a>
+        <button class="btn btn-primary" id="joinFlowBtn" type="button" style="font-family:inherit">加入文娱 <span class="arr">↗</span></button>
       </div>
     </div>
   </section>
@@ -1140,6 +1204,31 @@
   <div class="chat-input">
     <input id="chatInput" type="text" placeholder="问点招新的事吧…" aria-label="输入消息" maxlength="200">
     <button class="chat-send" id="chatSend" type="button">发送</button>
+  </div>
+</div>
+
+<div class="flow-overlay" id="flowOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="flowTitle">
+  <div class="flow-panel">
+    <button class="flow-close" id="flowClose" type="button" aria-label="关闭">×</button>
+    <h3 class="flow-title" id="flowTitle">加入文娱部流程</h3>
+    <p class="flow-note">一般 9 月面试，国庆前后就能收到录取通知啦～</p>
+    <div class="flow-steps">
+      <div class="flow-step"><span class="flow-num">1</span>按照要求填写表格</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><span class="flow-num">2</span>根据学院要求提交材料</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step wait"><span class="flow-num">3</span>等待一面通知</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><span class="flow-num">4</span>一面</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step wait"><span class="flow-num">5</span>等待二面通知</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><span class="flow-num">6</span>二面</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step wait"><span class="flow-num">7</span>等待录取结果</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step final"><span class="flow-num">8</span>成为文娱部的一员！</div>
+    </div>
   </div>
 </div>
 
@@ -1280,6 +1369,31 @@
   chatClose.addEventListener('click', closeChat);
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && chatPanel.classList.contains('is-open')) closeChat();
+  });
+
+  // 加入流程图弹窗
+  const flowOverlay = document.getElementById('flowOverlay');
+  const flowCloseBtn = document.getElementById('flowClose');
+  const joinFlowBtn = document.getElementById('joinFlowBtn');
+
+  function openFlow() {
+    flowOverlay.classList.add('is-open');
+    flowOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeFlow() {
+    flowOverlay.classList.remove('is-open');
+    flowOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  joinFlowBtn.addEventListener('click', openFlow);
+  flowCloseBtn.addEventListener('click', closeFlow);
+  flowOverlay.addEventListener('click', (e) => {
+    if (e.target === flowOverlay) closeFlow();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && flowOverlay.classList.contains('is-open')) closeFlow();
   });
 
   function appendMsg(role, text) {
