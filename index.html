@@ -753,8 +753,22 @@
   .chat-avatar img { width: 100%; height: 100%; object-fit: contain; }
   .chat-title { font-family: var(--font-head); font-size: 18px; color: var(--ink); }
   .chat-sub { font-family: var(--font-body); font-size: 12px; color: var(--ink-3); }
-  .chat-clear {
+  .chat-copy {
     margin-left: auto;
+    flex: none;
+    height: 32px;
+    padding: 0 10px;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    border: 1.5px solid var(--hairline);
+    background: #fffdf8;
+    color: var(--ink-3);
+    font-family: var(--font-body);
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out);
+  }
+  .chat-copy:hover { background: var(--paper-2); color: var(--ink); }
+  .chat-clear {
     flex: none;
     height: 32px;
     padding: 0 10px;
@@ -1197,9 +1211,9 @@
 </footer>
 
 <div class="floating-mascot">
-  <button class="mascot-btn" type="button" aria-label="文娱部吉祥物小研">
+  <button class="mascot-btn" type="button" aria-label="文娱部吉祥物小鱼">
     <img src="assets/minister-mascot.png" alt="">
-    <span class="mascot-bubble" role="status">俺是小研，部长的小宠物！</span>
+    <span class="mascot-bubble" role="status">我是小鱼，部长的小宠物！</span>
   </button>
 </div>
 
@@ -1207,14 +1221,15 @@
   <div class="chat-head">
     <span class="chat-avatar"><img src="assets/minister-mascot.png" alt=""></span>
     <span>
-      <span class="chat-title" id="chatTitle">小研 · 文娱部吉祥物</span><br>
+      <span class="chat-title" id="chatTitle">小鱼 · 文娱部吉祥物</span><br>
       <span class="chat-sub">点击体验 · 和我互动</span>
     </span>
+    <button class="chat-copy" id="chatCopy" type="button" aria-label="复制链接" title="复制链接">复制链接</button>
     <button class="chat-clear" id="chatClear" type="button" aria-label="清空聊天" title="清空聊天">清空</button>
     <button class="chat-close" id="chatClose" type="button" aria-label="关闭">×</button>
   </div>
   <div class="chat-list" id="chatList">
-    <div class="chat-msg chat-bot">嗨！俺是小研，文娱部部长的小宠物～ 想了解文娱部不？</div>
+    <div class="chat-msg chat-bot">嗨！我是小鱼，文娱部部长的小宠物～ 想了解文娱部吗？</div>
   </div>
   <div class="chat-input">
     <input id="chatInput" type="text" placeholder="问点招新的事吧…" aria-label="输入消息" maxlength="200">
@@ -1340,7 +1355,7 @@
   const mascotBtn = document.querySelector('.mascot-btn');
   const bubble = document.querySelector('.mascot-bubble');
   const mascotLines = [
-    '俺是小研，部长的小宠物！',
+    '我是小鱼，部长的小宠物！',
     '点我，带你逛逛文娱部～',
     '绝美文娱，一起做大做强！',
     '四个小组随你挑，进来玩！',
@@ -1352,7 +1367,7 @@
 
   // 打开页面：自动自我介绍 + 介绍聊天功能
   setTimeout(() => {
-    bubble.textContent = '哈喽！俺是小研，化院文娱部部长王研养的小宠物～ 点俺就能跟俺聊天，带你了解文娱部！';
+    bubble.textContent = '哈喽！我是小鱼，化院文娱部部长王研养的小宠物～ 点我就能跟我聊天，带你了解文娱部！';
     bubble.classList.add('is-show');
     setTimeout(() => bubble.classList.remove('is-show'), 6000);
   }, 1000);
@@ -1366,22 +1381,26 @@
   const chatInput = document.getElementById('chatInput');
   const chatSend = document.getElementById('chatSend');
   const chatClear = document.getElementById('chatClear');
-  let messages = [];
-  const STORAGE_KEY = 'wenyu-chat-history';
+  const chatCopy = document.getElementById('chatCopy');
+  let sessionId = '';
 
-  function saveHistory() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(messages)); } catch (e) {}
+  function newSessionId() {
+    const u = (crypto.randomUUID) ? crypto.randomUUID() : (Math.random().toString(16).slice(2) + Date.now().toString(16));
+    return u.replace(/-/g, '');
   }
-  function loadHistory() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      const arr = JSON.parse(raw);
-      if (Array.isArray(arr)) {
-        messages = arr.filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string');
-      }
-    } catch (e) {}
+  function setSession(id) {
+    sessionId = id;
+    try { localStorage.setItem('wenyu-session', id); } catch (e) {}
+    try { history.replaceState(null, '', location.pathname + '?s=' + id); } catch (e) {}
   }
+  // 初始化 sessionId：URL ?s= 优先，其次 localStorage，否则新生成
+  (function initSession() {
+    const urlS = new URLSearchParams(location.search).get('s');
+    let id = urlS;
+    if (!id) { try { id = localStorage.getItem('wenyu-session'); } catch (e) {} }
+    if (!id) id = newSessionId();
+    setSession(id);
+  })();
 
   function openChat() {
     chatPanel.classList.add('is-open');
@@ -1400,12 +1419,35 @@
   chatClose.addEventListener('click', closeChat);
 
   function clearChat() {
-    messages = [];
-    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    setSession(newSessionId());
     const msgs = chatList.querySelectorAll('.chat-msg');
     for (let i = 1; i < msgs.length; i++) msgs[i].remove();
   }
   chatClear.addEventListener('click', clearChat);
+
+  function fallbackCopy(text, ok) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); ok(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  chatCopy.addEventListener('click', () => {
+    const url = location.origin + location.pathname + '?s=' + sessionId;
+    const ok = () => {
+      const old = chatCopy.textContent;
+      chatCopy.textContent = '已复制';
+      setTimeout(() => { chatCopy.textContent = old; }, 1500);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(ok).catch(() => fallbackCopy(url, ok));
+    } else {
+      fallbackCopy(url, ok);
+    }
+  });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && chatPanel.classList.contains('is-open')) closeChat();
   });
@@ -1444,29 +1486,34 @@
     return div;
   }
 
-  // 恢复上次聊天记录（localStorage）
-  loadHistory();
-  messages.forEach(m => appendMsg(m.role === 'user' ? 'user' : 'bot', m.content));
+  // 从云端拉取该会话历史
+  if (sessionId) {
+    fetch(DEEPSEEK_URL + '?s=' + sessionId)
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((data) => {
+        const history = Array.isArray(data.history) ? data.history : [];
+        history.forEach(m => {
+          if (m && m.content) appendMsg(m.role === 'user' ? 'user' : 'bot', m.content);
+        });
+      })
+      .catch(() => {});
+  }
 
   function send() {
     const text = chatInput.value.trim();
     if (!text) return;
     chatInput.value = '';
     appendMsg('user', text);
-    messages.push({ role: 'user', content: text });
-    saveHistory();
 
     const typing = document.createElement('div');
     typing.className = 'chat-msg chat-bot chat-typing';
-    typing.textContent = '小研正在输入';
+    typing.textContent = '小鱼正在输入';
     chatList.appendChild(typing);
     chatList.scrollTop = chatList.scrollHeight;
 
     const finish = (reply) => {
       typing.remove();
       appendMsg('bot', reply);
-      messages.push({ role: 'assistant', content: reply });
-      saveHistory();
     };
 
     fetch(DEEPSEEK_URL, {
@@ -1474,7 +1521,7 @@
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ messages: messages.slice(-10) })
+      body: JSON.stringify({ sessionId: sessionId, content: text })
     })
       .then((r) => {
         if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -1482,9 +1529,9 @@
       })
       .then((data) => {
         const reply = data.reply || '';
-        finish(reply || '俺走神了，再问一次呗～');
+        finish(reply || '我走神了，再问一次呗～');
       })
-      .catch(() => finish('俺这会儿有点卡壳，稍后再试试哈～'));
+      .catch(() => finish('我这边有点卡壳，稍后再试试哈～'));
   }
 
   chatSend.addEventListener('click', send);
