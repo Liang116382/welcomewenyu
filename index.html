@@ -840,6 +840,17 @@
     0%, 100% { opacity: 0.2; }
     50% { opacity: 1; }
   }
+  .chat-hint {
+    flex: none;
+    padding: 7px 14px 9px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--ink-3);
+    text-align: center;
+    background: var(--paper);
+    border-top: 1px dashed var(--hairline);
+  }
 
   .chat-input {
     flex: none;
@@ -1224,7 +1235,7 @@
       <span class="chat-title" id="chatTitle">小鱼</span><br>
       <span class="chat-sub">点击体验 · 和我互动</span>
     </span>
-    <button class="chat-copy" id="chatCopy" type="button" aria-label="复制链接" title="复制链接">复制链接</button>
+    <button class="chat-copy" id="chatCopy" type="button" aria-label="复制链接" title="复制链接，换设备打开能看到同样的聊天记录">复制链接</button>
     <button class="chat-clear" id="chatClear" type="button" aria-label="清空聊天" title="清空聊天">清空</button>
     <button class="chat-close" id="chatClose" type="button" aria-label="关闭">×</button>
   </div>
@@ -1235,6 +1246,7 @@
     <input id="chatInput" type="text" placeholder="问点招新的事吧…" aria-label="输入消息" maxlength="200">
     <button class="chat-send" id="chatSend" type="button">发送</button>
   </div>
+  <div class="chat-hint">想保留聊天记录？点「复制链接」，换台设备打开就能接着聊</div>
 </div>
 
 <div class="flow-overlay" id="flowOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="flowTitle">
