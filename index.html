@@ -856,15 +856,6 @@
     background: var(--paper);
     border-top: 1px dashed var(--hairline);
   }
-  .chat-meta {
-    margin: -8px 0 8px;
-    font-family: var(--font-body);
-    font-size: 11px;
-    line-height: 1.4;
-    color: var(--ink-3);
-    opacity: 0.75;
-  }
-
   .chat-input {
     flex: none;
     display: flex;
@@ -1430,7 +1421,6 @@
   const chatClear = document.getElementById('chatClear');
   const chatCopy = document.getElementById('chatCopy');
   let sessionId = '';
-  let sessionTokens = 0;
 
   function newSessionId() {
     const u = (crypto.randomUUID) ? crypto.randomUUID() : (Math.random().toString(16).slice(2) + Date.now().toString(16));
@@ -1468,8 +1458,7 @@
 
   function clearChat() {
     setSession(newSessionId());
-    sessionTokens = 0;
-    const msgs = chatList.querySelectorAll('.chat-msg, .chat-meta');
+    const msgs = chatList.querySelectorAll('.chat-msg');
     for (let i = 1; i < msgs.length; i++) msgs[i].remove();
   }
   chatClear.addEventListener('click', clearChat);
@@ -1535,15 +1524,6 @@
     return div;
   }
 
-  function appendMeta(text) {
-    const div = document.createElement('div');
-    div.className = 'chat-meta';
-    div.textContent = text;
-    chatList.appendChild(div);
-    chatList.scrollTop = chatList.scrollHeight;
-    return div;
-  }
-
   // 从云端拉取该会话历史
   if (sessionId) {
     fetch(DEEPSEEK_URL + '?s=' + sessionId)
@@ -1588,11 +1568,6 @@
       .then((data) => {
         const reply = data.reply || '';
         finish(reply || '我走神了，再问一次呗～');
-        const usage = data.usage;
-        if (usage && usage.total_tokens) {
-          sessionTokens += usage.total_tokens;
-          appendMeta('本次消耗 ~' + usage.total_tokens + ' tokens · 本会话累计 ~' + sessionTokens + ' tokens');
-        }
       })
       .catch(() => finish('我这边有点卡壳，稍后再试试哈～'));
   }
