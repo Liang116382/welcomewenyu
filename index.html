@@ -1183,9 +1183,9 @@
 </footer>
 
 <div class="floating-mascot">
-  <button class="mascot-btn" type="button" aria-label="文娱部长王研">
+  <button class="mascot-btn" type="button" aria-label="文娱部吉祥物小研">
     <img src="assets/minister-mascot.png" alt="">
-    <span class="mascot-bubble" role="status">俺是文娱部长王研！</span>
+    <span class="mascot-bubble" role="status">俺是小研，部长的小宠物！</span>
   </button>
 </div>
 
@@ -1193,13 +1193,13 @@
   <div class="chat-head">
     <span class="chat-avatar"><img src="assets/minister-mascot.png" alt=""></span>
     <span>
-      <span class="chat-title" id="chatTitle">文娱部长王研</span><br>
+      <span class="chat-title" id="chatTitle">小研 · 文娱部吉祥物</span><br>
       <span class="chat-sub">点击体验 · 和我互动</span>
     </span>
     <button class="chat-close" id="chatClose" type="button" aria-label="关闭">×</button>
   </div>
   <div class="chat-list" id="chatList">
-    <div class="chat-msg chat-bot">嗨！俺是文娱部长王研，关于招新想聊点啥？</div>
+    <div class="chat-msg chat-bot">嗨！俺是小研，文娱部部长的小宠物～ 想了解文娱部不？</div>
   </div>
   <div class="chat-input">
     <input id="chatInput" type="text" placeholder="问点招新的事吧…" aria-label="输入消息" maxlength="200">
@@ -1325,7 +1325,7 @@
   const mascotBtn = document.querySelector('.mascot-btn');
   const bubble = document.querySelector('.mascot-bubble');
   const mascotLines = [
-    '俺是文娱部长王研！',
+    '俺是小研，部长的小宠物！',
     '点我，带你逛逛文娱部～',
     '绝美文娱，一起做大做强！',
     '四个小组随你挑，进来玩！',
@@ -1337,7 +1337,7 @@
 
   // 打开页面：自动自我介绍 + 介绍聊天功能
   setTimeout(() => {
-    bubble.textContent = '哈喽！俺是王研，化院文娱部部长～ 点俺就能跟俺聊天，带你了解文娱部！';
+    bubble.textContent = '哈喽！俺是小研，化院文娱部部长王研养的小宠物～ 点俺就能跟俺聊天，带你了解文娱部！';
     bubble.classList.add('is-show');
     setTimeout(() => bubble.classList.remove('is-show'), 6000);
   }, 1000);
@@ -1414,7 +1414,7 @@
 
     const typing = document.createElement('div');
     typing.className = 'chat-msg chat-bot chat-typing';
-    typing.textContent = '王研正在输入';
+    typing.textContent = '小研正在输入';
     chatList.appendChild(typing);
     chatList.scrollTop = chatList.scrollHeight;
 
