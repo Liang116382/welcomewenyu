@@ -196,12 +196,13 @@ exports.main_handler = async (event, context) => {
       ? data.choices[0].message.content
       : '';
     const finalReply = reply || '我走神了，再问一次呗～';
+    const usage = data.usage || null;
 
     // 把本轮对话追加进历史并写回 COS（最多保留最近 50 条）
     const newHistory = [...history, { role: 'user', content }, { role: 'assistant', content: finalReply }].slice(-50);
     await saveHistory(sessionId, newHistory);
 
-    return respond(200, { reply: finalReply });
+    return respond(200, { reply: finalReply, usage });
   } catch (e) {
     return respond(500, { reply: '我这边有点卡壳，稍后再试试哈～' });
   }
