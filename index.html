@@ -389,6 +389,55 @@
   @media (max-width: 860px) { .work-grid { columns: 2; } }
   @media (max-width: 520px) { .work-grid { columns: 1; } }
 
+  /* ---------- 组标签折叠 / 小组成员 ---------- */
+  .group-head { cursor: pointer; user-select: none; }
+  .g-toggle {
+    margin-left: auto; flex: none;
+    width: 36px; height: 36px;
+    display: grid; place-items: center;
+    font-family: var(--font-head);
+    font-size: 26px; line-height: 1;
+    color: var(--ink);
+    background: var(--paper-2);
+    border: 1.5px solid var(--ink);
+    border-radius: 50% 6px 50% 6px;
+    transform: rotate(-3deg);
+    transition: transform 0.3s var(--ease-spring), background 0.3s var(--ease-out);
+  }
+  .group.is-open .g-toggle { transform: rotate(45deg); background: var(--ink); color: #fff; }
+  .group .g-duties,
+  .group .group-work,
+  .group .g-members { display: none; }
+  .group.is-open .g-duties { display: flex; animation: groupIn 0.35s var(--ease-out); }
+  .group.is-open .group-work,
+  .group.is-open .g-members { display: block; animation: groupIn 0.35s var(--ease-out); }
+  @keyframes groupIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: none; }
+  }
+  .g-members { margin-top: 26px; }
+  .g-people { display: flex; flex-direction: column; gap: 10px; }
+  .g-people li {
+    display: flex; align-items: center; gap: 12px;
+    padding: 9px 16px;
+    background: var(--paper-2);
+    border: 1.5px solid var(--hairline);
+    border-radius: 12px 6px 12px 6px;
+    font-size: 15.5px; font-weight: 700; color: var(--ink-2);
+  }
+  .g-people .p-year {
+    flex: none;
+    font-family: var(--font-head);
+    font-size: 13px; color: #fff;
+    padding: 3px 9px 4px;
+    border-radius: 8px 4px 8px 4px;
+    transform: rotate(-2deg);
+  }
+  .group-a .g-people .p-year { background: var(--blue); }
+  .group-b .g-people .p-year { background: var(--orange); }
+  .group-c .g-people .p-year { background: var(--red); }
+  .group-d .g-people .p-year { background: var(--green); }
+
   /* ---------- PART 02: member photo wall ---------- */
   .member-wall { columns: 4; column-gap: 18px; }
   .mcard {
@@ -834,9 +883,10 @@
         <!-- 文宣组 -->
         <article class="group group-a sketchy reveal" id="group-wenxuan">
           <span class="tape tape-blue"></span>
-          <div class="group-head">
+          <div class="group-head" role="button" tabindex="0" aria-expanded="false">
             <h3 class="g-name">文宣组</h3>
             <span class="g-tag tag-a">宣传委员</span>
+            <span class="g-toggle" aria-hidden="true">+</span>
           </div>
           <ul class="g-duties">
             <li>制作创意推送</li>
@@ -854,14 +904,22 @@
               <div class="ph" style="--tilt:1deg"><img loading="lazy" decoding="async" src="img2026/web/s07_05.jpg" alt="活动现场"></div>
             </div>
           </div>
+          <div class="g-members">
+            <span class="work-tag">小组成员</span>
+            <ul class="g-people">
+              <li><span class="p-year">2024级</span>陆瑀之、郑文烨</li>
+              <li><span class="p-year">2025级</span>徐可昱</li>
+            </ul>
+          </div>
         </article>
 
         <!-- 设计组 -->
         <article class="group group-b sketchy reveal" id="group-sheji">
           <span class="tape tape-orange"></span>
-          <div class="group-head">
+          <div class="group-head" role="button" tabindex="0" aria-expanded="false">
             <h3 class="g-name">设计组</h3>
             <span class="g-tag tag-b">文娱门面</span>
+            <span class="g-toggle" aria-hidden="true">+</span>
           </div>
           <ul class="g-duties">
             <li>海报文创设计</li>
@@ -879,14 +937,22 @@
               <div class="ph" style="--tilt:-1.5deg"><img loading="lazy" decoding="async" src="img2026/web/s10_06.jpg" alt="活动现场"></div>
             </div>
           </div>
+          <div class="g-members">
+            <span class="work-tag">小组成员</span>
+            <ul class="g-people">
+              <li><span class="p-year">2024级</span>梁江枫</li>
+              <li><span class="p-year">2025级</span>张欣悦、杨莹莹、李熹恒</li>
+            </ul>
+          </div>
         </article>
 
         <!-- 舞台组 -->
         <article class="group group-c sketchy reveal" id="group-wutai">
           <span class="tape tape-red"></span>
-          <div class="group-head">
+          <div class="group-head" role="button" tabindex="0" aria-expanded="false">
             <h3 class="g-name">舞台组</h3>
             <span class="g-tag tag-c">文娱核心</span>
+            <span class="g-toggle" aria-hidden="true">+</span>
           </div>
           <ul class="g-duties">
             <li>主题构思与策划撰写</li>
@@ -902,14 +968,22 @@
               <div class="ph" style="--tilt:1deg"><img loading="lazy" decoding="async" src="img2026/web/s13_03.jpg" alt="舞台现场"></div>
             </div>
           </div>
+          <div class="g-members">
+            <span class="work-tag">小组成员</span>
+            <ul class="g-people">
+              <li><span class="p-year">2024级</span>韦舒彤、郑雨彤、田自凤、刘来金</li>
+              <li><span class="p-year">2025级</span>于润豪、高靖翔</li>
+            </ul>
+          </div>
         </article>
 
         <!-- 外联组 -->
         <article class="group group-d sketchy reveal" id="group-wailian">
           <span class="tape tape-green"></span>
-          <div class="group-head">
+          <div class="group-head" role="button" tabindex="0" aria-expanded="false">
             <h3 class="g-name">外联组</h3>
             <span class="g-tag tag-d">金主爸爸</span>
+            <span class="g-toggle" aria-hidden="true">+</span>
           </div>
           <ul class="g-duties">
             <li>拉取赞助 筹集资金</li>
@@ -926,6 +1000,13 @@
               <div class="ph" style="--tilt:2deg"><span class="corner l tape-red"></span><img loading="lazy" decoding="async" src="img2026/web/s16_04.jpg" alt="赞助洽谈"></div>
               <div class="ph" style="--tilt:-1.5deg"><img loading="lazy" decoding="async" src="img2026/web/s16_05.jpg" alt="外联活动"></div>
             </div>
+          </div>
+          <div class="g-members">
+            <span class="work-tag">小组成员</span>
+            <ul class="g-people">
+              <li><span class="p-year">2024级</span>郭书言</li>
+              <li><span class="p-year">2025级</span>刘焕文、沈思诚</li>
+            </ul>
           </div>
         </article>
       </div>
@@ -1077,6 +1158,34 @@
       io.observe(el);
     });
   }
+
+  // 四个小组：点击标签展开/收起
+  document.querySelectorAll('.group-head').forEach(head => {
+    const group = head.closest('.group');
+    const setOpen = (open) => {
+      group.classList.toggle('is-open', open);
+      head.setAttribute('aria-expanded', String(open));
+    };
+    head.addEventListener('click', () => setOpen(!group.classList.contains('is-open')));
+    head.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setOpen(!group.classList.contains('is-open'));
+      }
+    });
+  });
+
+  // 导航锚点跳转到某组时自动展开该组
+  document.querySelectorAll('a[href^="#group-"]').forEach(a => {
+    a.addEventListener('click', () => {
+      const el = document.getElementById(a.getAttribute('href').slice(1));
+      if (el) {
+        el.classList.add('is-open');
+        const head = el.querySelector('.group-head');
+        if (head) head.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
 
   // 简介下拉
   const dd = document.querySelector('.dd');
