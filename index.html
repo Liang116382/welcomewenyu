@@ -635,6 +635,11 @@
     visibility: visible;
     transform: translateX(0) scale(1);
   }
+  .mascot-bubble.is-show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) scale(1);
+  }
 
   /* ---------- chat panel (王研在线答疑) ---------- */
   .chat-panel {
@@ -1241,10 +1246,17 @@
     bubble.textContent = mascotLines[Math.floor(Math.random() * mascotLines.length)];
   });
 
+  // 打开页面：自动自我介绍 + 介绍聊天功能
+  setTimeout(() => {
+    bubble.textContent = '哈喽！俺是王研，化院文娱部部长～ 点俺就能跟俺聊天，招新问题随便问！';
+    bubble.classList.add('is-show');
+    setTimeout(() => bubble.classList.remove('is-show'), 6000);
+  }, 1000);
+
   // 直接调用 DeepSeek（key 内嵌；api.deepseek.com 国内直连）
   const DEEPSEEK_API_KEY = 'KEY_REMOVED';
   const DEEPSEEK_URL = 'https://api.deepseek.com/chat/completions';
-  const SYSTEM_PROMPT = `你是厦门大学学生会文娱部部长王研，一个Q版卡通小人，正在给2026级新生做招新答疑。
+  const SYSTEM_PROMPT = `你是厦门大学化学化工学院（化院）文娱部部长王研，一个Q版卡通小人，正在给2026级新生做招新答疑。
 说话风格：亲切、活泼、接地气，自称"俺"，偶尔带点俏皮，每句话不超过50个字，不要暴露自己是AI或程序。
 
 招新关键信息（务必准确）：
