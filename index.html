@@ -407,15 +407,19 @@
   .group.is-open .g-toggle { transform: rotate(45deg); background: var(--ink); color: #fff; }
   .group .g-duties,
   .group .group-work,
-  .group .g-members { display: none; }
+  .group .g-members,
+  .group .g-photo { display: none; }
   .group.is-open .g-duties { display: flex; animation: groupIn 0.35s var(--ease-out); }
   .group.is-open .group-work,
-  .group.is-open .g-members { display: block; animation: groupIn 0.35s var(--ease-out); }
+  .group.is-open .g-members,
+  .group.is-open .g-photo { display: block; animation: groupIn 0.35s var(--ease-out); }
   @keyframes groupIn {
     from { opacity: 0; transform: translateY(-8px); }
     to { opacity: 1; transform: none; }
   }
   .g-members { margin-top: 26px; }
+  .g-photo { margin-top: 26px; }
+  .g-photo .photo-card { max-width: 560px; margin: 0 auto; }
   .g-people { display: flex; flex-direction: column; gap: 10px; }
   .g-people li {
     display: flex; align-items: center; gap: 12px;
@@ -1008,6 +1012,10 @@
               <div class="ph" style="--tilt:1deg"><img loading="lazy" decoding="async" src="img2026/web/s07_05.jpg" alt="活动现场"></div>
             </div>
           </div>
+          <div class="g-photo">
+            <span class="work-tag">小组合照</span>
+            <div class="photo-card ph" style="--tilt:0deg"><img loading="lazy" decoding="async" src="img2026/web/grp_wenxuan.jpg" alt="文宣组小组合照"></div>
+          </div>
           <div class="g-members">
             <span class="work-tag">小组成员</span>
             <ul class="g-people">
@@ -1041,6 +1049,10 @@
               <div class="ph" style="--tilt:-1.5deg"><img loading="lazy" decoding="async" src="img2026/web/s10_06.jpg" alt="活动现场"></div>
             </div>
           </div>
+          <div class="g-photo">
+            <span class="work-tag">小组合照</span>
+            <div class="photo-card ph" style="--tilt:0deg"><img loading="lazy" decoding="async" src="img2026/web/grp_sheji.jpg" alt="设计组小组合照"></div>
+          </div>
           <div class="g-members">
             <span class="work-tag">小组成员</span>
             <ul class="g-people">
@@ -1071,6 +1083,10 @@
               <div class="ph" style="--tilt:-2deg"><span class="corner l tape-yellow"></span><img loading="lazy" decoding="async" src="img2026/web/s13_02.jpg" alt="舞台现场"></div>
               <div class="ph" style="--tilt:1deg"><img loading="lazy" decoding="async" src="img2026/web/s13_03.jpg" alt="舞台现场"></div>
             </div>
+          </div>
+          <div class="g-photo">
+            <span class="work-tag">小组合照</span>
+            <div class="photo-card ph" style="--tilt:0deg"><img loading="lazy" decoding="async" src="img2026/web/grp_wutai.jpg" alt="舞台组小组合照"></div>
           </div>
           <div class="g-members">
             <span class="work-tag">小组成员</span>
@@ -1104,6 +1120,10 @@
               <div class="ph" style="--tilt:2deg"><span class="corner l tape-red"></span><img loading="lazy" decoding="async" src="img2026/web/s16_04.jpg" alt="赞助洽谈"></div>
               <div class="ph" style="--tilt:-1.5deg"><img loading="lazy" decoding="async" src="img2026/web/s16_05.jpg" alt="外联活动"></div>
             </div>
+          </div>
+          <div class="g-photo">
+            <span class="work-tag">小组合照</span>
+            <div class="photo-card ph" style="--tilt:0deg"><img loading="lazy" decoding="async" src="img2026/web/grp_wailian.jpg" alt="外联组小组合照"></div>
           </div>
           <div class="g-members">
             <span class="work-tag">小组成员</span>
