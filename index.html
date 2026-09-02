@@ -507,27 +507,8 @@
   .more-btn.is-open .arr { transform: rotate(180deg); }
 
   /* ---------- PART 04: requirements + flip ---------- */
-  .req-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
-  .req {
-    position: relative;
-    background: #fffdf8;
-    padding: 26px 18px 22px;
-    text-align: center;
-    box-shadow: 4px 5px 0 rgba(36, 29, 22, 0.10);
-    transform: rotate(var(--tilt, 0deg));
-    transition: transform 0.35s var(--ease-spring);
-  }
-  .req:hover { transform: rotate(0deg) translateY(-5px); }
-  .req .w { font-family: var(--font-head); font-size: 12px; letter-spacing: 0.24em; color: var(--seal); }
-  .req h4 { font-family: var(--font-head); font-size: 22px; font-weight: 400; letter-spacing: 0.02em; margin-top: 10px; }
-  .req .sub { font-size: 15px; font-weight: 500; color: var(--ink-3); margin-top: 8px; }
-  .req .doodle { display: block; width: 46px; height: 8px; margin: 14px auto 0; }
-  .req .doodle path { stroke: var(--orange); stroke-width: 3; stroke-linecap: round; fill: none; }
-  @media (max-width: 860px) { .req-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 520px) { .req-grid { grid-template-columns: 1fr; } }
-
   .flip {
-    margin-top: 70px;
+    margin-top: 0;
     position: relative;
     text-align: center;
     padding: 70px 30px;
@@ -905,7 +886,7 @@
     .sec-head { margin-bottom: 40px; }
     .group { padding: 30px 18px 24px; }
     .g-name { font-size: 28px; }
-    .flip { padding: 52px 20px; margin-top: 52px; }
+    .flip { padding: 52px 20px; margin-top: 0; }
     .flip .ifs { max-width: 100%; }
   }
   @media (max-width: 440px) {
@@ -1241,25 +1222,6 @@
       <div class="sec-head reveal">
         <span class="sec-kicker">Part 04 <em>加入要求</em></span>
         <h2>想加入，<span class="accent">需要什么</span></h2>
-      </div>
-
-      <div class="req-grid">
-        <div class="req sketchy reveal" style="--tilt:-2deg">
-          <div class="w">WRITE</div><h4>妙笔生花</h4><div class="sub">具备推文的撰稿能力</div>
-          <svg class="doodle" viewBox="0 0 46 8" aria-hidden="true"><path d="M3 6 C 15 2, 30 7, 43 4"></path></svg>
-        </div>
-        <div class="req sketchy reveal" style="--tilt:1.5deg">
-          <div class="w">DESIGN</div><h4>独具匠心</h4><div class="sub">拥有海报的设计能力</div>
-          <svg class="doodle" viewBox="0 0 46 8" aria-hidden="true"><path d="M3 6 C 15 2, 30 7, 43 4"></path></svg>
-        </div>
-        <div class="req sketchy reveal" style="--tilt:-1deg">
-          <div class="w">PLAN</div><h4>深思远虑</h4><div class="sub">掌握策划的撰写能力</div>
-          <svg class="doodle" viewBox="0 0 46 8" aria-hidden="true"><path d="M3 6 C 15 2, 30 7, 43 4"></path></svg>
-        </div>
-        <div class="req sketchy reveal" style="--tilt:2deg">
-          <div class="w">TALK</div><h4>善于辞令</h4><div class="sub">拥有外联的洽谈能力</div>
-          <svg class="doodle" viewBox="0 0 46 8" aria-hidden="true"><path d="M3 6 C 15 2, 30 7, 43 4"></path></svg>
-        </div>
       </div>
 
       <div class="flip sketchy reveal">
