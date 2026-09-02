@@ -502,7 +502,8 @@
   .harvest-wall .more-item { display: none; }
   .harvest-wall .member-wall.is-expanded .more-item { display: block; }
   .more-wrap { text-align: center; margin-top: 40px; }
-  .more-btn.is-hidden { display: none; }
+  .more-btn .arr { display: inline-block; transition: transform 0.35s var(--ease-spring); }
+  .more-btn.is-open .arr { transform: rotate(180deg); }
 
   /* ---------- PART 04: requirements + flip ---------- */
   .req-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
@@ -1613,14 +1614,17 @@
     }
   });
 
-  // 照片墙「查看更多」展开
+  // 照片墙「查看更多 / 收起」展开折叠
   const moreBtn = document.getElementById('galleryMore');
   const harvestMemberWall = moreBtn ? moreBtn.closest('.harvest-wall').querySelector('.member-wall') : null;
   if (moreBtn && harvestMemberWall) {
     moreBtn.addEventListener('click', () => {
-      harvestMemberWall.classList.add('is-expanded');
-      moreBtn.classList.add('is-hidden');
-      moreBtn.setAttribute('aria-expanded', 'true');
+      const expanding = !harvestMemberWall.classList.contains('is-expanded');
+      harvestMemberWall.classList.toggle('is-expanded', expanding);
+      moreBtn.classList.toggle('is-open', expanding);
+      moreBtn.setAttribute('aria-expanded', String(expanding));
+      const label = moreBtn.firstChild;
+      if (label) label.nodeValue = expanding ? '收起' : '查看更多 ';
     });
   }
 </script>
