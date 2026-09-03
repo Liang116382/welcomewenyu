@@ -482,33 +482,29 @@
   @media (max-width: 860px) { .harvest-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 520px) { .harvest-grid { grid-template-columns: 1fr; } }
 
-  .perk-wall {
-    margin-top: 36px;
-    display: flex; flex-wrap: wrap; gap: 12px 14px;
-    justify-content: center; align-items: center;
-    padding: 16px 20px;
-    background: #fffdf8;
-    border: 1.5px dashed rgba(36, 29, 22, 0.30);
-    border-radius: 20px;
+  .harvest-note {
+    margin: 38px auto 0;
+    max-width: 58ch;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink-2);
+    line-height: 2.1;
   }
-  .perk-tag {
-    font-size: 15px; font-weight: 600; color: var(--ink-2);
-    background: #fff;
-    border: 1.5px solid var(--hairline);
-    border-radius: 999px;
-    padding: 7px 15px 8px;
-    display: inline-flex; align-items: center; gap: 8px;
-    box-shadow: 2px 3px 0 rgba(36, 29, 22, 0.10);
-    transform: rotate(var(--tilt, 0deg));
-    transition: transform 0.35s var(--ease-spring);
+  .harvest-note .wv {
+    font-weight: 700;
+    text-decoration: underline wavy;
+    text-decoration-thickness: 2px;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 6px;
   }
-  .perk-tag::before {
-    content: ""; width: 9px; height: 9px; border-radius: 50%;
-    background: var(--dot, var(--seal)); flex: none;
-  }
-  .perk-tag:hover { transform: rotate(0deg) translateY(-2px); }
+  .wv-1 { text-decoration-color: var(--seal); }
+  .wv-2 { text-decoration-color: var(--blue); }
+  .wv-3 { text-decoration-color: var(--orange); }
+  .wv-4 { text-decoration-color: var(--teal); }
+  @media (max-width: 520px) { .harvest-note { font-size: 16.5px; } }
 
-  .sticker-wall { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 44px; }
+  .sticker-wall { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 48px; }
   .sticker {
     font-family: var(--font-head);
     padding: 12px 22px 13px;
@@ -1189,14 +1185,7 @@
         <div class="gain reveal" style="--tilt:-1deg"><div class="ic ic-c"></div><h4>舞台布控与舞美设计</h4><p>亲手搭起一台晚会</p></div>
         <div class="gain reveal" style="--tilt:2deg"><div class="ic ic-d"></div><h4>物资筹备和赞助洽谈</h4><p>学会和真实世界打交道</p></div>
       </div>
-      <div class="perk-wall reveal">
-        <span class="perk-tag" style="--dot:var(--seal);--tilt:-1.5deg">活动计志愿工时</span>
-        <span class="perk-tag" style="--dot:var(--blue);--tilt:1deg">评奖评优有加分</span>
-        <span class="perk-tag" style="--dot:var(--orange);--tilt:-1deg">学长学姐的选课建议</span>
-        <span class="perk-tag" style="--dot:var(--green);--tilt:1.5deg">海量学习资料共享</span>
-        <span class="perk-tag" style="--dot:var(--teal);--tilt:-0.5deg">大型活动亲历体验</span>
-        <span class="perk-tag" style="--dot:var(--red);--tilt:0.5deg">十佳歌手认识外院朋友</span>
-      </div>
+      <p class="harvest-note reveal">除了技能，还能顺手攒<span class="wv wv-1">志愿工时</span>、给<span class="wv wv-2">评奖评优</span>加分，<span class="wv wv-3">选课</span>找学长学姐问，<span class="wv wv-4">海量学习资料</span>随便共享。</p>
       <div class="sticker-wall reveal">
         <span class="sticker st-1" style="--tilt:-4deg">一群志同道合的朋友</span>
         <span class="sticker st-2" style="--tilt:3deg">亦师亦友的学长学姐</span>
