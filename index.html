@@ -486,14 +486,14 @@
     margin: 40px auto 0;
     max-width: 60ch;
     text-align: center;
-    font-family: var(--font-body);
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--ink-3);
+    font-family: var(--font-head);
+    font-size: clamp(16px, 2.2vw, 18px);
+    font-weight: 400;
+    color: var(--ink-2);
     line-height: 1.9;
   }
-  .harvest-note .accent { color: var(--seal); font-weight: 700; }
-  @media (max-width: 520px) { .harvest-note { font-size: 15.5px; } }
+  .harvest-note .accent { color: var(--seal); }
+  @media (max-width: 520px) { .harvest-note { font-size: 15px; } }
 
   .sticker-wall { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 48px; }
   .sticker {
