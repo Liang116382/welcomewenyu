@@ -482,7 +482,33 @@
   @media (max-width: 860px) { .harvest-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 520px) { .harvest-grid { grid-template-columns: 1fr; } }
 
-  .sticker-wall { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 60px; }
+  .perk-wall {
+    margin-top: 36px;
+    display: flex; flex-wrap: wrap; gap: 12px 14px;
+    justify-content: center; align-items: center;
+    padding: 16px 20px;
+    background: #fffdf8;
+    border: 1.5px dashed rgba(36, 29, 22, 0.30);
+    border-radius: 20px;
+  }
+  .perk-tag {
+    font-size: 15px; font-weight: 600; color: var(--ink-2);
+    background: #fff;
+    border: 1.5px solid var(--hairline);
+    border-radius: 999px;
+    padding: 7px 15px 8px;
+    display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 2px 3px 0 rgba(36, 29, 22, 0.10);
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform 0.35s var(--ease-spring);
+  }
+  .perk-tag::before {
+    content: ""; width: 9px; height: 9px; border-radius: 50%;
+    background: var(--dot, var(--seal)); flex: none;
+  }
+  .perk-tag:hover { transform: rotate(0deg) translateY(-2px); }
+
+  .sticker-wall { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 44px; }
   .sticker {
     font-family: var(--font-head);
     padding: 12px 22px 13px;
@@ -1163,6 +1189,14 @@
         <div class="gain reveal" style="--tilt:-1deg"><div class="ic ic-c"></div><h4>舞台布控与舞美设计</h4><p>亲手搭起一台晚会</p></div>
         <div class="gain reveal" style="--tilt:2deg"><div class="ic ic-d"></div><h4>物资筹备和赞助洽谈</h4><p>学会和真实世界打交道</p></div>
       </div>
+      <div class="perk-wall reveal">
+        <span class="perk-tag" style="--dot:var(--seal);--tilt:-1.5deg">活动计志愿工时</span>
+        <span class="perk-tag" style="--dot:var(--blue);--tilt:1deg">评奖评优有加分</span>
+        <span class="perk-tag" style="--dot:var(--orange);--tilt:-1deg">学长学姐的选课建议</span>
+        <span class="perk-tag" style="--dot:var(--green);--tilt:1.5deg">海量学习资料共享</span>
+        <span class="perk-tag" style="--dot:var(--teal);--tilt:-0.5deg">大型活动亲历体验</span>
+        <span class="perk-tag" style="--dot:var(--red);--tilt:0.5deg">十佳歌手认识外院朋友</span>
+      </div>
       <div class="sticker-wall reveal">
         <span class="sticker st-1" style="--tilt:-4deg">一群志同道合的朋友</span>
         <span class="sticker st-2" style="--tilt:3deg">亦师亦友的学长学姐</span>
@@ -1174,6 +1208,8 @@
       </div>
       <div class="harvest-wall reveal">
         <div class="member-wall">
+          <div class="mcard" style="--tilt:-2.5deg"><span class="tape tape-teal"></span><img loading="lazy" decoding="async" src="https://wenyu-img-1478907260.cos.ap-guangzhou.myqcloud.com/img2026/web/s21_00.png" alt="文娱部快乐日常"></div>
+          <div class="mcard" style="--tilt:2deg"><span class="tape tape-orange"></span><img loading="lazy" decoding="async" src="https://wenyu-img-1478907260.cos.ap-guangzhou.myqcloud.com/img2026/web/s21_01.png" alt="文娱部快乐日常"></div>
           <div class="mcard" style="--tilt:-2.5deg"><span class="tape tape-blue"></span><img loading="lazy" decoding="async" src="https://wenyu-img-1478907260.cos.ap-guangzhou.myqcloud.com/img2026/web/s19_00.jpg" alt="文娱部快乐日常"></div>
           <div class="mcard" style="--tilt:2deg"><span class="tape tape-orange"></span><img loading="lazy" decoding="async" src="https://wenyu-img-1478907260.cos.ap-guangzhou.myqcloud.com/img2026/web/s19_01.jpg" alt="文娱部快乐日常"></div>
           <div class="mcard" style="--tilt:-1.5deg"><span class="tape tape-yellow"></span><img loading="lazy" decoding="async" src="https://wenyu-img-1478907260.cos.ap-guangzhou.myqcloud.com/img2026/web/s19_02.jpg" alt="文娱部快乐日常"></div>
