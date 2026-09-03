@@ -483,16 +483,17 @@
   @media (max-width: 520px) { .harvest-grid { grid-template-columns: 1fr; } }
 
   .harvest-note {
-    margin: 38px auto 0;
-    max-width: 58ch;
+    margin: 40px auto 0;
+    max-width: 60ch;
     text-align: center;
-    font-size: 19px;
-    font-weight: 500;
+    font-family: var(--font-display);
+    font-size: clamp(21px, 3vw, 26px);
+    font-weight: 400;
     color: var(--ink-2);
-    line-height: 2.1;
+    line-height: 1.95;
   }
-  .harvest-note .accent { color: var(--seal); font-weight: 700; }
-  @media (max-width: 520px) { .harvest-note { font-size: 16.5px; } }
+  .harvest-note .accent { color: var(--seal); }
+  @media (max-width: 520px) { .harvest-note { font-size: 20px; } }
 
   .sticker-wall { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 48px; }
   .sticker {
@@ -1175,7 +1176,7 @@
         <div class="gain reveal" style="--tilt:-1deg"><div class="ic ic-c"></div><h4>舞台布控与舞美设计</h4><p>亲手搭起一台晚会</p></div>
         <div class="gain reveal" style="--tilt:2deg"><div class="ic ic-d"></div><h4>物资筹备和赞助洽谈</h4><p>学会和真实世界打交道</p></div>
       </div>
-      <p class="harvest-note reveal">除了技能，还能顺手攒<span class="accent">志愿工时</span>、给<span class="accent">评奖评优</span>加分，<span class="accent">选课</span>找学长学姐问，<span class="accent">海量学习资料</span>随便共享。</p>
+      <p class="harvest-note reveal">除了技能，还能顺手攒<span class="accent">志愿工时</span>、给<span class="accent">评奖评优</span>加分，<span class="accent">选课</span>找学长学姐问，<span class="accent">海量学习资料</span>随便共享！</p>
       <div class="sticker-wall reveal">
         <span class="sticker st-1" style="--tilt:-4deg">一群志同道合的朋友</span>
         <span class="sticker st-2" style="--tilt:3deg">亦师亦友的学长学姐</span>
